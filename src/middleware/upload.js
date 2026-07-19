@@ -1,11 +1,16 @@
 import multer from "multer"
+import fs from "fs" // 1. استيراد مكتبة الـ File System
 import { AppError } from "../utils/AppError.js"
 
 let options = (folderName) => {
 
     const storage = multer.diskStorage({
         destination: function (req, file, cb) {
-            cb(null, `uploads/${folderName}`)
+            const dir = `uploads/${folderName}` 
+            if (!fs.existsSync(dir)) {
+                fs.mkdirSync(dir, { recursive: true })
+            }
+            cb(null, dir)
         },
         filename: function (req, file, cb) {
             const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9)
@@ -26,5 +31,4 @@ let options = (folderName) => {
 export const uploadSingleFile = (fieldName, folderName) => options(folderName).single(fieldName)
 
 export const uploadMixOffFiles = (arrayOffFields, folderName) => options(folderName).fields(arrayOffFields)
-
 
