@@ -1,12 +1,12 @@
 import multer from "multer"
-import fs from "fs" // 1. استيراد مكتبة الـ File System
+import fs from "fs"
 import { AppError } from "../utils/AppError.js"
 
 let options = (folderName) => {
 
     const storage = multer.diskStorage({
         destination: function (req, file, cb) {
-            const dir = `uploads/${folderName}` 
+            const dir = `uploads/${folderName}`
             if (!fs.existsSync(dir)) {
                 fs.mkdirSync(dir, { recursive: true })
             }

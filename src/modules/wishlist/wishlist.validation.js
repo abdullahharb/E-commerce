@@ -1,4 +1,4 @@
-import joi from "joi";
+import joi from "joi"
 
 export const addOrDeleteWishlistSchema = joi.object({
     product: joi.string().required().hex().length(24)

@@ -1,7 +1,7 @@
 import joi from "joi";
 
-const nameRegex = /^[a-zA-Z\u0600-\u06FF\s_]+$/;
-const phoneRegex = /^01[0125][0-9]{8}$/;
+const nameRegex = /^[a-zA-Z\u0600-\u06FF\s_]+$/
+const phoneRegex = /^01[0125][0-9]{8}$/
 
 export const createUserSchema = joi.object({
     name: joi.string().min(2).max(30).trim().pattern(nameRegex).required(),
