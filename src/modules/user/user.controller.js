@@ -36,11 +36,19 @@ const deleteUser = factor.deleteOne(userModel)
 const changeUserPassword = catchAsyncError(async (req, res, next) => {
     const { id } = req.params
     req.body.passwordChangedAt = Date.now()
-    
+
     let result = await userModel.findByIdAndUpdate(id, req.body, { returnDocument: 'after' })
     !result && next(new AppError('User not found', 404))
     result && res.json({ message: 'success', result })
 })
+
+const changeUserRole = catchAsyncError(async (req, res, next) => {
+    const { id } = req.params;
+    let result = await userModel.findByIdAndUpdate(id, { role: req.body.role }, { returnDocument: 'after' });
+    !result && next(new AppError('User not found', 404));
+    result && res.json({ message: 'success', result });
+});
+
 
 export {
     createUser,
@@ -48,5 +56,7 @@ export {
     getUser,
     updateUser,
     deleteUser,
-    changeUserPassword
+
+    changeUserPassword,
+    changeUserRole
 }
