@@ -42,12 +42,14 @@ const changeUserPassword = catchAsyncError(async (req, res, next) => {
     result && res.json({ message: 'success', result })
 })
 
+
 const changeUserRole = catchAsyncError(async (req, res, next) => {
-    const { id } = req.params;
-    let result = await userModel.findByIdAndUpdate(id, { role: req.body.role }, { returnDocument: 'after' });
-    !result && next(new AppError('User not found', 404));
-    result && res.json({ message: 'success', result });
-});
+    const { id } = req.params
+    let user = await userModel.findByIdAndUpdate(id, { role: req.body.role }, { returnDocument: 'after' })
+    if (!user) next(new AppError('Usernot found', 404))
+    res.json({ message: 'success', user })
+})
+
 
 
 export {

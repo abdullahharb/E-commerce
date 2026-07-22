@@ -30,10 +30,13 @@ export function init(app) {
     app.use('/api/v1/coupons', couponRouter)
     app.use('/api/v1/carts', cartRouter)
     app.use('/api/v1/orders', orderRouter)
-
-
-    app.get('/', (req, res) => { res.json('Welcome User'); });
-
+    
+app.get('/', (req, res) => {
+    res.status(200).json({
+        message: "Welcome to E-Commerce APi Service...",
+        documentation: "https://documenter.getpostman.com/view/52629353/2sBY4Mv1qi"
+    });
+});
 
     app.use((req, res, next) => {
         next(new AppError(`cant find this route: ${req.originalUrl}`, 404))

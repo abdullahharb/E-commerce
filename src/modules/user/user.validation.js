@@ -28,4 +28,5 @@ export const getOrDeleteUserSchema = joi.object({
 export const changeUserRoleSchema = joi.object({
     id: joi.string().hex().length(24).required(),
     role: joi.string().valid('user', 'admin').required()
-});
+})
+
